@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier Oral Wi-Fi 7 (802.11be) - Younes Bouizergane</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#020617', /* Slate 950 - Plus profond */
+                        card: '#0f172a',
+                        primary: '#3b82f6',
+                        accent: '#22d3ee',
+                        purple: '#a855f7',
+                        amber: '#f59e0b',
+                        green: '#22c55e',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base Setup */
+        body { background-color: #020617; color: #cbd5e1; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+        
+        /* Glass Effect */
+        .glass-panel { 
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Typography */
+        .text-glow { text-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #22d3ee, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Oral Notes Box */
+        .oral-note {
+            border-left: 4px solid #f59e0b; /* Amber */
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, rgba(0,0,0,0) 100%);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            position: relative;
+        }
+        .oral-note::before {
+            content: '\f130'; /* Microphone Icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            background: #020617;
+            color: #f59e0b;
+            padding: 4px;
+            border-radius: 50%;
+            border: 2px solid #f59e0b;
+        }
+
+        /* Tech Analogy Box */
+        .analogy-box {
+            border: 1px dashed #22d3ee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            background: rgba(34, 211, 238, 0.03);
+        }
+
+        /* Comparison Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+        .comparison-table th {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+        }
+        .comparison-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        .highlight-cell {
+            color: #22d3ee;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="font-body overflow-x-hidden selection:bg-accent selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/5 top-0">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+                    <i class="fa-solid fa-wifi text-xl animate-pulse"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-lg text-white tracking-wide">WI-FI 7 <span class="text-accent">802.11be</span></span>
+                    <span class="text-[10px] text-slate-500 font-mono uppercase">Support d'Oral</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex gap-6 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <a href="#intro" class="hover:text-white transition-colors">Intro</a>
+                <a href="#comparison" class="hover:text-accent transition-colors">Comparatif</a>
+                <a href="#ai-robotics" class="text-purple-400 hover:text-purple-300 transition-colors">IA & Robotique</a>
+                <a href="#enterprise" class="hover:text-green-300 transition-colors">Entreprise</a>
+                <a href="#security" class="hover:text-amber-300 transition-colors">Sécurité</a>
+                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="intro" class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-[20%] left-[20%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] animate-pulse-slow"></div>
+            <div class="absolute bottom-[20%] right-[20%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-dark/80 to-dark"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-slate-300 font-mono text-xs tracking-widest reveal">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                DOSSIER DE SOUTENANCE • VOLUME 1
+            </div>
+
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight reveal" style="transition-delay: 100ms;">
+                La Révolution <br>
+                <span class="gradient-text text-glow">Déterministe</span>
+            </h1>
+
+            <p class="text-lg md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed reveal" style="transition-delay: 200ms;">
+                Le Wi-Fi 7 (802.11be) transforme le sans-fil en une infrastructure critique capable de remplacer l'Ethernet, sécuriser les données sensibles et piloter l'industrie 4.0.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-16 reveal" style="transition-delay: 300ms;">
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-center items-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-bold text-white mb-2 group-hover:text-accent transition-colors">46 Gbps</div>
+                    <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Vitesse Physique</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-center items-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-bold text-accent mb-2">WPA3</div>
+                    <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Sécurité 192-bit</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-center items-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">MLO</div>
+                    <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Multi-Link Op.</div>
+                </div>
+            </div>
+
+            <div class="reveal" style="transition-delay: 400ms;">
+                <p class="text-sm text-slate-600 mb-2 font-mono">Présenté par</p>
+                <div class="text-xl font-bold text-white">Younes Bouizergane</div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 animate-bounce text-slate-600">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- SECTION 1 : TABLEAU COMPARATIF -->
+    <section id="comparison" class="py-24 bg-dark/50 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12 text-center reveal">
+                <span class="text-accent font-mono text-sm tracking-widest uppercase">Évolution des Normes</span>
+                <h2 class="font-display text-4xl font-bold text-white mt-3">Tableau Comparatif Complet</h2>
+            </div>
+
+            <div class="glass-panel rounded-2xl overflow-hidden reveal">
+                <div class="overflow-x-auto">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Caractéristique</th>
+                                <th>Wi-Fi 5 (ac)</th>
+                                <th>Wi-Fi 6 (ax)</th>
+                                <th>Wi-Fi 6E (ax)</th>
+                                <th class="text-accent bg-accent/10">Wi-Fi 7 (be)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-bold text-white">Année de lancement</td>
+                                <td>2014</td>
+                                <td>2019</td>
+                                <td>2021</td>
+                                <td class="highlight-cell bg-accent/5">2024</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-white">Bandes de Fréquence</td>
+                                <td>5 GHz</td>
+                                <td>2.4 / 5 GHz</td>
+                                <td>2.4 / 5 / 6 GHz</td>
+                                <td class="highlight-cell bg-accent/5">2.4 / 5 / 6 GHz</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-white">Largeur de Canal Max</td>
+                                <td>160 MHz</td>
+                                <td>160 MHz</td>
+                                <td>160 MHz</td>
+                                <td class="highlight-cell bg-accent/5">320 MHz</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-white">Modulation (QAM)</td>
+                                <td>256-QAM</td>
+                                <td>1024-QAM (1K)</td>
+                                <td>1024-QAM (1K)</td>
+                                <td class="highlight-cell bg-accent/5">4096-QAM (4K)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-white">Débit Max Théorique</td>
+                                <td>3.5 Gbps</td>
+                                <td>9.6 Gbps</td>
+                                <td>9.6 Gbps</td>
+                                <td class="highlight-cell bg-accent/5">46.1 Gbps</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-white">Fonction Clé</td>
+                                <td>Vitesse</td>
+                                <td>Densité (OFDMA)</td>
+                                <td>Spectre Vierge</td>
+                                <td class="highlight-cell bg-accent/5">Latence (MLO)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 : DEEP TECH (Les 3 Piliers) -->
+    <section id="deeptech" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20 text-center reveal">
+                <span class="text-accent font-mono text-sm tracking-widest uppercase">Au cœur du système</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-3">Les 3 Piliers de la Performance</h2>
+            </div>
+
+            <!-- TECH 1 : 320 MHz -->
+            <div class="glass-panel rounded-3xl p-8 md:p-12 mb-16 border-l-4 border-blue-500 reveal">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="lg:w-1/2">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 text-2xl">
+                                <i class="fa-solid fa-road"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-white">1. Canaux 320 MHz</h3>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            <strong>Le concept :</strong> Le Wi-Fi 7 exploite la bande <strong>6 GHz</strong> pour doubler la largeur maximale du canal (de 160 à 320 MHz).
+                        </p>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            <strong>La nouveauté (Puncturing) :</strong> Le Wi-Fi 7 "poinçonne" (ignorer) les interférences pour utiliser le reste du spectre.
+                        </p>
+                        <div class="oral-note">
+                            <strong class="text-amber-400 block mb-2 uppercase text-xs tracking-widest">Phrase pour l'oral :</strong>
+                            "Imaginez une autoroute à 4 voies. Si un cône bloque une voie, le Wi-Fi 7 contourne le cône et utilise les 3 autres voies au lieu de fermer l'autoroute."
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 flex flex-col justify-center">
+                        <div class="analogy-box">
+                            <h4 class="text-accent font-bold mb-4"><i class="fa-solid fa-truck-fast mr-2"></i> Analogie</h4>
+                            <p class="text-sm text-slate-400"><strong>Wi-Fi 6 (160 MHz) :</strong> Camion standard.</p>
+                            <p class="text-sm text-slate-300 mt-2"><strong>Wi-Fi 7 (320 MHz) :</strong> Semi-remorque double longueur. On déménage tout en un seul voyage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TECH 2 : 4K QAM -->
+            <div class="glass-panel rounded-3xl p-8 md:p-12 mb-16 border-l-4 border-purple-500 reveal">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="lg:w-1/2">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-400 text-2xl">
+                                <i class="fa-solid fa-border-all"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-white">2. 4096-QAM (4K)</h3>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            <strong>Le concept :</strong> Encodage de 12 bits par symbole (contre 10 bits avant), augmentant la densité d'information de 20%.
+                        </p>
+                        <div class="oral-note">
+                            <strong class="text-amber-400 block mb-2 uppercase text-xs tracking-widest">Phrase pour l'oral :</strong>
+                            "C'est comme écrire en pattes de mouche ultra-précises sur une feuille. On met plus d'infos, mais il faut être près pour lire."
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 flex items-center justify-center">
+                        <div class="analogy-box w-full">
+                            <h4 class="text-accent font-bold mb-4">Contrainte Physique</h4>
+                            <p class="text-sm text-slate-400">
+                                Nécessite un signal très pur (SNR > 40dB). Cette vitesse maximale n'est atteinte qu'à courte portée.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TECH 3 : MLO -->
+            <div class="glass-panel rounded-3xl p-8 md:p-12 mb-16 border-l-4 border-accent reveal">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="lg:w-1/2">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center text-accent text-2xl">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-white">3. MLO (Multi-Link)</h3>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            <strong>Rupture majeure :</strong> Un appareil utilise enfin les bandes 5 GHz et 6 GHz <strong>simultanément</strong>.
+                        </p>
+                        <div class="oral-note">
+                            <strong class="text-amber-400 block mb-2 uppercase text-xs tracking-widest">Phrase pour l'oral :</strong>
+                            "C'est la fin des embouteillages. C'est comme si votre GPS utilisait l'autoroute ET la nationale en même temps."
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 flex flex-col justify-center">
+                        <div class="analogy-box w-full">
+                            <h4 class="text-accent font-bold mb-4">Les Modes MLO</h4>
+                            <ul class="text-sm text-slate-400 space-y-2">
+                                <li><strong>STR :</strong> Vitesse Max (Envoi/Réception simultanés).</li>
+                                <li><strong>Redondance :</strong> Fiabilité Max (Duplication des paquets).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3 (NOUVELLE) : IA, CLOUD & ROBOTIQUE -->
+    <section id="ai-robotics" class="py-32 bg-gradient-to-b from-dark to-slate-900 border-t border-white/5 relative overflow-hidden">
+        <!-- Abstract Tech Background -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-10 left-10 text-9xl text-purple-500"><i class="fa-solid fa-brain"></i></div>
+            <div class="absolute bottom-10 right-10 text-9xl text-accent"><i class="fa-solid fa-robot"></i></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="mb-20 text-center reveal">
+                <span class="text-purple-400 font-mono text-sm tracking-widest uppercase">Convergence Technologique</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-3">Le Moteur de l'IA & Robotique</h2>
+                <p class="text-slate-400 mt-4 max-w-2xl mx-auto">
+                    Pourquoi le Wi-Fi 7 est-il indispensable pour le futur de l'automatisation ?
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 items-center reveal">
+                <!-- Concept Card -->
+                <div class="w-full md:w-1/2">
+                    <div class="glass-panel p-8 rounded-3xl border border-purple-500/30 h-full flex flex-col justify-center">
+                        <div class="flex justify-center mb-8">
+                            <div class="relative">
+                                <i class="fa-solid fa-cloud text-8xl text-purple-500 animate-pulse"></i>
+                                <i class="fa-solid fa-bolt text-4xl text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white text-center mb-4">Le concept : "Cloud Robotics"</h3>
+                        <p class="text-slate-300 text-center leading-relaxed">
+                            Les robots (drones, humanoïdes) n'ont pas assez de batterie pour embarquer des super-calculateurs. 
+                            Leur "cerveau" est déporté dans le Cloud. Le Wi-Fi 7 est le nerf optique qui relie l'œil du robot au cerveau distant.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3 Key Points -->
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold shrink-0">1</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Déport de Calcul (Offloading)</h4>
+                            <p class="text-slate-400 text-sm">Le robot envoie des flux vidéo 4K/8K au Cloud pour analyse. Les canaux <strong>320 MHz</strong> sont vitaux pour supporter cette bande passante montante massive.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold shrink-0">2</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Contrôle Temps Réel</h4>
+                            <p class="text-slate-400 text-sm">L'IA renvoie l'ordre (ex: "Freiner"). Si ce message a du retard, c'est l'accident. Le <strong>MLO</strong> garantit une latence < 1ms, même en milieu perturbé.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold shrink-0">3</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Apprentissage Fédéré</h4>
+                            <p class="text-slate-400 text-sm">La nuit, tous les robots synchronisent leurs données pour améliorer l'IA globale. Le Wi-Fi 7 divise par 5 le temps de transfert de ces Tézaoctets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="oral-note mt-12 reveal">
+                <strong class="text-amber-400 block mb-2 uppercase text-xs tracking-widest">Phrase pour l'oral :</strong>
+                "Sans le Wi-Fi 7, le robot intelligent est un concept impossible. C'est cette norme qui permet de mettre le cerveau du robot dans le Cloud tout en gardant ses réflexes sur Terre."
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4 : ENTREPRISE -->
+    <section id="enterprise" class="py-32 bg-dark/50 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 text-center reveal">
+                <span class="text-green-400 font-mono text-sm tracking-widest uppercase">Business Case</span>
+                <h2 class="font-display text-4xl font-bold text-white mt-3">À quoi ça sert en Entreprise ?</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 reveal">
+                <!-- Case 1: Finance -->
+                <div class="glass-panel p-8 rounded-2xl group hover:border-green-500/50 transition-colors">
+                    <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-400 text-3xl mb-6">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Finance & Trading</h3>
+                    <p class="text-slate-400 text-sm mb-4">Trading haute fréquence mobile.</p>
+                    <ul class="text-sm text-slate-300 space-y-2">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Latence < 1ms (MLO).</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Mobilité sur le plateau sans perte.</li>
+                    </ul>
+                </div>
+
+                <!-- Case 2: Logistics -->
+                <div class="glass-panel p-8 rounded-2xl group hover:border-blue-500/50 transition-colors">
+                    <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 text-3xl mb-6">
+                        <i class="fa-solid fa-dolly"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Logistique 4.0</h3>
+                    <p class="text-slate-400 text-sm mb-4">Robots d'entrepôt (AGV).</p>
+                    <ul class="text-sm text-slate-300 space-y-2">
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Roaming imperceptible.</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> +15% de productivité (plus de micro-arrêts).</li>
+                    </ul>
+                </div>
+
+                <!-- Case 3: Flex Office -->
+                <div class="glass-panel p-8 rounded-2xl group hover:border-purple-500/50 transition-colors">
+                    <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 text-3xl mb-6">
+                        <i class="fa-solid fa-building-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Bureau "Zero Wire"</h3>
+                    <p class="text-slate-400 text-sm mb-4">Fin du port Ethernet au bureau.</p>
+                    <ul class="text-sm text-slate-300 space-y-2">
+                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Cloud Gaming / VDI 4K fluide.</li>
+                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Économie massive de câblage.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5 : SÉCURITÉ -->
+    <section id="security" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20 text-center reveal">
+                <span class="text-amber-400 font-mono text-sm tracking-widest uppercase">Cybersécurité</span>
+                <h2 class="font-display text-4xl font-bold text-white mt-3">Le Bouclier de Sécurité</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 reveal">
+                <!-- WPA3 -->
+                <div class="glass-panel p-10 rounded-3xl border-t-4 border-amber-500 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-9xl text-amber-500"><i class="fa-solid fa-lock"></i></div>
+                    <h3 class="text-2xl font-bold text-white mb-4">1. WPA3-Enterprise 192-bit</h3>
+                    <p class="text-slate-300 mb-6">Standard militaire obligatoire.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="bg-amber-500/20 p-2 rounded mr-4 text-amber-400"><i class="fa-solid fa-key"></i></div>
+                            <div>
+                                <strong class="text-white block">Chiffrement GCMP-256</strong>
+                                <span class="text-sm text-slate-400">Remplace l'AES-128. Robuste contre les ordinateurs quantiques.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- OWE -->
+                <div class="glass-panel p-10 rounded-3xl border-t-4 border-accent relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-9xl text-accent"><i class="fa-solid fa-user-secret"></i></div>
+                    <h3 class="text-2xl font-bold text-white mb-4">2. OWE (Opportunistic Wireless Encryption)</h3>
+                    <p class="text-slate-300 mb-6">Sécurisation des réseaux ouverts.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="bg-accent/20 p-2 rounded mr-4 text-accent"><i class="fa-solid fa-eye-slash"></i></div>
+                            <div>
+                                <strong class="text-white block">Anti-Sniffing</strong>
+                                <span class="text-sm text-slate-400">Chiffrement automatique sans mot de passe. Impossible d'écouter le trafic voisin.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="oral-note mt-12 reveal">
+                <strong class="text-amber-400 block mb-2 uppercase text-xs tracking-widest">Phrase pour l'oral :</strong>
+                "Le Wi-Fi 7 rend l'espionnage passif impossible. Même sur un réseau invité sans mot de passe, OWE garantit que personne ne peut intercepter vos données."
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6 : FAQ JURY & GLOSSAIRE -->
+    <section id="faq" class="py-32 bg-dark border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="font-display text-3xl font-bold text-white mb-12 text-center reveal">Anticipation des Questions du Jury</h2>
+            
+            <div class="space-y-6 reveal">
+                <div class="glass-panel p-6 rounded-xl">
+                    <h4 class="text-accent font-bold mb-2">Q: Est-ce que le Wi-Fi 7 va remplacer la 5G ?</h4>
+                    <p class="text-sm text-slate-400">Non, ils sont complémentaires. La 5G est pour l'extérieur et la mobilité longue distance. Le Wi-Fi 7 est pour l'intérieur (LAN) avec un coût au Go beaucoup plus faible.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl">
+                    <h4 class="text-accent font-bold mb-2">Q: Faut-il changer tous les appareils ?</h4>
+                    <p class="text-sm text-slate-400">Rétrocompatibilité assurée. Les vieux appareils fonctionnent, mais seuls les nouveaux profitent du MLO et des 320 MHz.</p>
+                </div>
+                
+                <!-- Glossaire intégré -->
+                <div class="mt-12 pt-12 border-t border-white/10">
+                    <h4 class="text-white font-bold mb-6 text-center uppercase tracking-widest text-xs">Glossaire Rapide</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                        <div><strong class="text-accent">EHT:</strong> Extremely High Throughput</div>
+                        <div><strong class="text-accent">QAM:</strong> Quadrature Amplitude Modulation</div>
+                        <div><strong class="text-accent">OFDMA:</strong> Orthogonal Frequency-Division Multiple Access</div>
+                        <div><strong class="text-accent">SSID:</strong> Service Set Identifier</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUTURE: WIFI 8 OPENING -->
+    <section id="wifi8" class="py-24 bg-black relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center reveal relative z-10">
+            <span class="text-slate-500 font-mono text-xs tracking-widest uppercase mb-4 block">Horizon 2028</span>
+            <h2 class="font-display text-5xl font-bold text-white mb-8">Et après ? Le Wi-Fi 8 (UHR)</h2>
+            <p class="text-xl text-slate-400 mb-8 leading-relaxed">
+                Le Wi-Fi 7 visait la vitesse (EHT). Le Wi-Fi 8 visera la <strong>Fiabilité Ultra-Haute (UHR)</strong>.
+                Les bornes collaboreront entre elles pour envoyer des données au même appareil, éliminant définitivement les zones mortes.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 bg-dark text-center relative z-10">
+        <p class="text-slate-500 text-sm">© 2025 - Support de Soutenance - Younes Bouizergane</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
